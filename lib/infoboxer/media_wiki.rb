@@ -240,7 +240,7 @@ module Infoboxer
       return Tree::Nodes[] if response['pages'].nil?
 
       pages = response['pages']
-              .values.select { |p| p['missing'].nil? }
+              .values.select { |p| p['missing'].nil? && !p['revisions'].nil? }
               .map { |raw| Page.new(self, Parser.paragraphs(raw['revisions'].first['*'], traits), raw) }
 
       Tree::Nodes[*pages]
